@@ -20,14 +20,14 @@ router.post('/register', async (req, res) => {
 
         // create a user in the db
         const newUser = await db.User.create({
-            name: req.body.name,
+            username: req.body.username,
             email: req.body.email,
             password: hashedPassword
         })
 
         // create a jwt paylaod to send back to the client
         const payload = {
-            name: newUser.name,
+            username: newUser.username,
             email: newUser.email,
             id: newUser._id
         }
@@ -57,7 +57,7 @@ router.post('/login', async (req, res) => {
         if (!match) return res.status(400).json({ msg: 'bad login credentials' })
         // create a jwt payload
         const payload = {
-            name: foundUser.name,
+            username: foundUser.username,
             email: foundUser.email,
             id: foundUser.id
         }
